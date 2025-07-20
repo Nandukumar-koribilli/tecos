@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Application Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px; /* Padding for the whole body */
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* --- Header Styles --- */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            margin-bottom: 20px; /* Space between header and form container */
+            border-radius: 20px; /* Rounded corners for the header */
+
+            /* Glassy effect for the header */
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+            box-shadow: 0 4px 15px rgba(31, 38, 135, 0.2); /* Subtle shadow */
+            backdrop-filter: blur(10px) saturate(150%); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+            position: relative; /* For z-index */
+            z-index: 2; /* Ensure header is above background elements */
+        }
+
+        .logo {
+            max-width: 100px; /* Adjusted for better fit with glassy header */
+            height: auto;
+            margin-right: 20px;
+            border-radius: 60px; /* Slightly rounded corners for the logo image */
+        }
+
+        .college-name {
+            font-size: 1.5em; /* Adjusted font size for better readability */
+            font-weight: bold;
+            color: #333333; /* Black text */
+            flex-grow: 1;
+            text-align: center;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.7); /* White text shadow for visibility */
+        }
+        /* --- End Header Styles --- */
+
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 0 auto; /* Center the container, no top margin needed as header provides space */
+            padding: 30px;
+            border-radius: 25px;
+            position: relative;
+            transform-style: preserve-3d;
+
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 8px 32px 0 rgba(31, 38, 135, 0.37),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px) saturate(180%) brightness(110%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%) brightness(110%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 50%);
+                pointer-events: none;
+                border-radius: inherit;
+                z-index: 1;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 50%;
+                height: 50%;
+                background: radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+                pointer-events: none;
+                border-bottom-right-radius: inherit;
+                z-index: 1;
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            font-size: 2.4em;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.03);
+            position: relative;
+            z-index: 2;
+        }
+
+        h3 {
+            color: #444444;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.7);
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            font-weight: 600;
+            color: #555555;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 2;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.05);
+            color: #333333;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 2;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(51, 51, 51, 0.7);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: rgba(0, 0, 0, 0.4);
+            box-shadow:
+                0 0 0 3px rgba(0, 0, 0, 0.15),
+                inset 0 0 8px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-5.4H18.2c-5%200-9.3%201.8-13.2%205.4A17.6%2017.6%200%200%200%200%2082.2c0%204.6%201.8%208.9%205.4%2012.8l128%20127.9c3.9%203.9%208.2%205.8%2012.8%205.8s8.9-1.9%2012.8-5.8L287%2095c3.5-3.9%205.4-8.2%205.4-12.8%200-4.6-1.8-8.9-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            padding-right: 40px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #success-message {
+            text-align: center;
+            display: none;
+            color: #333333;
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 3;
+        }
+        #success-message h1 {
+            color: #222222;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 6px rgba(255, 255, 255, 0.8);
+        }
+        #success-message p {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+        #success-message a {
+            color: #2193b0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+        }
+        #success-message a:hover {
+            color: #6dd5ed;
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column; /* Stack logo and name on small screens */
+                text-align: center;
+                padding: 10px;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px; /* Space below logo when stacked */
+            }
+            .college-name {
+                font-size: 1.2em; /* Smaller font for college name */
+            }
+            .container {
+                padding: 20px;
+                margin: 0 auto;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            input, select, textarea, button {
+                padding: 10px 12px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.gvpcdpgc.edu.in/gvplogo.jpg" alt="Gayatri Vidya Parishad College Logo" class="logo">
+        <div class="college-name">GAYATRI VIDYA PARISHAD COLLEGE FOR DEGREE AND PG COURSES (AUTONOMOUS)</div>
+    </div>
+
+    <div class="container">
+        <h2>Student Application Form</h2>
+        <form id="applicationForm" enctype="multipart/form-data">
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" required placeholder="Enter your full name">
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" required placeholder="e.g., +1234567890">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required placeholder="e.g., example@domain.com">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required placeholder="Your full address"></textarea>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+                <label for="nationality">Nationality:</label>
+                <select id="nationality" name="nationality" required>
+                    <option value="">Select Nationality</option>
+                    <option value="Afghan">Afghan</option>
+                    <option value="Albanian">Albanian</option>
+                    <option value="Argentine">Argentine</option>
+                    <option value="Australian">Australian</option>
+                    <option value="Austrian">Austrian</option>
+                    <option value="Bangladeshi">Bangladeshi</option>
+                    <option value="Brazilian">Brazilian</option>
+                    <option value="British">British</option>
+                    <option value="Canadian">Canadian</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Colombian">Colombian</option>
+                    <option value="Egyptian">Egyptian</option>
+                    <option value="Ethiopian">Ethiopian</option>
+                    <option value="French">French</option>
+                    <option value="German">German</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Indonesian">Indonesian</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Kenyan">Kenyan</option>
+                    <option value="Malaysian">Malaysian</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Moroccan">Moroccan</option>
+                    <option value="Nigerian">Nigerian</option>
+                    <option value="Pakistani">Pakistani</option>
+                    <option value="Russian">Russian</option>
+                    <option value="Saudi">Saudi</option>
+                    <option value="South African">South African</option>
+                    <option value="South Korean">South Korean</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="Thai">Thai</option>
+                    <option value="Turkish">Turkish</option>
+                    <option value="American">American</option>
+                    <option value="Vietnamese">Vietnamese</option>
+                </select>
+                <label for="photo">Upload Photo:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+                <label for="signature">Upload Signature:</label>
+                <input type="file" id="signature" name="signature" accept="image/*" required>
+            </div>
+            <div class="form-section">
+                <h3>Educational Details</h3>
+                <label for="matric_board">Matriculation (10th Grade):</label>
+                <select id="matric_board" name="matric_board" required>
+                    <option value="">Select Board</option>
+                    <option value="SSC">SSC</option>
+                    <option value="ICSE">ICSE</option>
+                    <option value="CBSE">CBSE</option>
+                </select>
+                <label for="intermediate">Intermediate/Diploma:</label>
+                <input type="text" id="intermediate" name="intermediate" placeholder="e.g., Intermediate Science">
+                <label for="degree">Degree/B.Tech:</label>
+                <select id="degree" name="degree" required>
+                    <option value="">Select University</option>
+                    <option value="GVPCoE">Gayatri Vidya Parishad College of Engineering</option>
+                    <option value="GVPCD">Gayatri Vidya Parishad College for Degree and PG Courses</option>
+                    <option value="GVPHC">Gayatri Vidya Parishad Institute of Health Care and Medical Technology</option>
+                </select>
+                <label for="course">Course:</label>
+                <select id="course" name="course" required>
+                    <option value="">Select Course</option>
+                    <option value="01">BSc Computer Science (01)</option>
+                    <option value="02">BSc Electronics (02)</option>
+                    <option value="03">BSc MB/BT/BC (03)</option>
+                    <option value="04">BSc Physics (04)</option>
+                    <option value="05">BSc Chemistry (05)</option>
+                    <option value="06">BSc Statistics (06)</option>
+                    <option value="07">BSc Data Science (07)</option>
+                </select>
+                <label for="year">Year:</label>
+                <select id="year" name="year" required>
+                    <option value="">Select Year</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="form-section">
+                <h3>Additional Details</h3>
+                <label for="skills">Skills:</label>
+                <textarea id="skills" name="skills" placeholder="List your skills (e.g., Python, JavaScript, Data Analysis)"></textarea>
+                <label for="hobbies">Hobbies:</label>
+                <textarea id="hobbies" name="hobbies" placeholder="Tell us about your hobbies (e.g., Reading, Hiking, Coding)"></textarea>
+                <label for="work_experience">Work Experience (if any):</label>
+                <textarea id="work_experience" name="work_experience" placeholder="Describe your work experience"></textarea>
+            </div>
+            <button type="submit">Submit Application</button>
+        </form>
+        <div id="success-message">
+            <h1>Submission Successful</h1>
+            <p>Your form was submitted successfully</p>
+            <a href="#" onclick="resetForm()">Back to Form</a>
+        </div>
+    </div>
+    <script>
+        // Initialize form visibility
+        document.getElementById('applicationForm').style.display = 'block';
+        document.getElementById('success-message').style.display = 'none';
+
+        // Handle form submission via AJAX
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Form submission initiated');
+            let formData = new FormData(this);
+            fetch('http://localhost:3000/api/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then(data => { throw new Error(data.error || 'Submission failed') });
+                }
+            })
+            .then(data => {
+                console.log('Submission successful:', data.message);
+                document.getElementById('applicationForm').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                alert('Submission failed: ' + error.message);
+            });
+        });
+
+        // Reset form
+        function resetForm() {
+            console.log('Resetting form');
+            document.getElementById('applicationForm').reset();
+            document.getElementById('applicationForm').style.display = 'block';
+            document.getElementById('success-message').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
