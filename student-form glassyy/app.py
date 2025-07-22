@@ -3,17 +3,15 @@ from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
-from flask_cors import CORS # Import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
+CORS(app)
 
 # MongoDB Atlas connection
-# !!! IMPORTANT: Replace this URI with your actual MongoDB Atlas connection string !!!
 uri = "mongodb+srv://nandukumar9980:kumar456@cluster0.ecnna5x.mongodb.net/student-form?retryWrites=true&w=majority"
 try:
     client = MongoClient(uri, serverSelectionTimeoutMS=30000)
-    # The ping command is cheap and does not require auth.
     client.admin.command('ping')
     print("Connected to MongoDB Atlas")
 except Exception as e:
@@ -41,16 +39,25 @@ def submit_form():
         # Get form data
         form_data = {
             'full_name': request.form.get('full_name'),
+            'father_name': request.form.get('father_name'),
+            'mother_name': request.form.get('mother_name'),
+            'gender': request.form.get('gender'),
             'phone_number': request.form.get('phone_number'),
+            'father_mobile_no': request.form.get('father_mobile_no'),
+            'mother_mobile_no': request.form.get('mother_mobile_no'),
             'email': request.form.get('email'),
             'address': request.form.get('address'),
             'dob': datetime.strptime(request.form.get('dob'), '%Y-%m-%d'),
             'nationality': request.form.get('nationality'),
+            'reservation_category': request.form.get('reservation_category'),
+            'reservation_category_other': request.form.get('reservation_category_other'),
             'matric_board': request.form.get('matric_board'),
+            'matric_marks': request.form.get('matric_marks'),
             'intermediate': request.form.get('intermediate'),
+            'intermediate_group': request.form.get('intermediate_group'),
+            'intermediate_marks': request.form.get('intermediate_marks'),
             'degree': request.form.get('degree'),
             'course': request.form.get('course'),
-            'year': request.form.get('year'),
             'skills': request.form.get('skills'),
             'hobbies': request.form.get('hobbies'),
             'work_experience': request.form.get('work_experience')
@@ -64,17 +71,18 @@ def submit_form():
             if file.filename == '':
                 return jsonify({'error': f'No {file_key} selected'}), 400
             if file and allowed_file(file.filename):
-                # Generate a unique filename to prevent overwrites
                 filename = secure_filename(f"{file_key}_{int(datetime.now().timestamp())}{os.path.splitext(file.filename)[1]}")
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(file_path)
-                form_data[file_key] = file_path # Store path in DB
+                form_data[file_key] = file_path
             else:
                 return jsonify({'error': f'Invalid {file_key} file type or no file selected'}), 400
 
         # Validate required fields
-        required_fields = ['full_name', 'phone_number', 'email', 'address', 'dob', 'nationality',
-                           'photo', 'signature', 'matric_board', 'degree', 'course', 'year']
+        required_fields = ['full_name', 'father_name', 'mother_name', 'gender', 'phone_number', 
+                           'father_mobile_no', 'mother_mobile_no', 'email', 'address', 'dob', 
+                           'nationality', 'reservation_category', 'matric_board', 'degree', 
+                           'course', 'photo', 'signature']
         for field in required_fields:
             if not form_data.get(field):
                 return jsonify({'error': f'{field} is required'}), 400
@@ -93,4 +101,3 @@ def uploaded_file(filename):
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
-
