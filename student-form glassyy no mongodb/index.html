@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAYATRI VIDYA PARISHAD COLLEGE FOR DEGREE AND PG COURSES (AUTONOMOUS)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            max-width: 100px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 60px;
+        }
+
+        .college-details {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .college-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333333;
+            margin: 5px 0;
+        }
+
+        .college-info {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin: 2px 0;
+        }
+
+        .codes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .codes div {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+        
+        .header-button {
+            background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-left: 20px;
+        }
+        .header-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        #data-view-container {
+            max-width: 95%;
+            overflow-x: auto;
+        }
+        #data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #data-table th, #data-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        #data-table th {
+            background-color: #2193b0;
+            color: white;
+            font-weight: bold;
+        }
+        #data-table tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        h2 { text-align: center; color: #333; }
+        h3 { color: #444; border-bottom: 2px solid rgba(0,0,0,0.2); padding-bottom: 10px; }
+        label { display: block; margin: 15px 0 8px; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; box-sizing: border-box; background: rgba(255, 255, 255, 0.05); }
+        
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .phone-input-group select {
+            width: 30%;
+        }
+        .phone-input-group input {
+            width: 70%;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.gvpcdpgc.edu.in/gvplogo.jpg" alt="College Logo" class="logo">
+        <div class="college-details">
+            <div class="college-name">GAYATRI VIDYA PARISHAD COLLEGE FOR DEGREE AND PG COURSES (AUTONOMOUS)</div>
+            <div class="college-info">(Affiliated to Andhra University Accredited by NAAC with 'A' Grade)</div>
+            <div class="college-info">(MBA and UG Engineering B.Tech (CE, CSE, ECE and ME) programs are Accredited by NBA)</div>
+            <div class="college-info">Visakhapatnam - 530045</div>
+            <div class="codes">
+                <div>ICET CODE: GVPP</div>
+                <div>EAPCET / ECET CODE: GVPT</div>
+                <div>PGECECET CODE: GVPT1</div>
+                <div>AUCET CODE: 112</div>
+                <div>OAMDC: 13818</div>
+            </div>
+        </div>
+        <button id="viewDataBtn" class="header-button">View Data</button>
+    </div>
+
+    <div class="container" id="form-container">
+        <h2>Student Application Form</h2>
+        <form id="applicationForm" enctype="multipart/form-data">
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <label for="full_name">Full Name:</label>
+                <input type="text" id="full_name" name="full_name" required placeholder="Enter your full name">
+                
+                <label for="father_name">Father's Name:</label>
+                <input type="text" id="father_name" name="father_name" required placeholder="Enter father's name">
+                
+                <label for="mother_name">Mother's Name:</label>
+                <input type="text" id="mother_name" name="mother_name" required placeholder="Enter mother's name">
+                
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="phone_number">Phone Number:</label>
+                <div class="phone-input-group">
+                    <select name="phone_country_code">
+                        <option value="+91">+91 (India)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="phone_number" name="phone_number" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                </div>
+
+                <label for="father_phone_number">Father's Mobile Number:</label>
+                <div class="phone-input-group">
+                    <select name="father_phone_country_code">
+                        <option value="+91">+91 (India)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="father_phone_number" name="father_phone_number" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                </div>
+
+                <label for="mother_phone_number">Mother's Mobile Number:</label>
+                <div class="phone-input-group">
+                    <select name="mother_phone_country_code">
+                        <option value="+91">+91 (India)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="mother_phone_number" name="mother_phone_number" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                </div>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required placeholder="e.g., example@domain.com">
+
+                <label for="permanent_address">Permanent Address:</label>
+                <textarea id="permanent_address" name="permanent_address" required placeholder="Your permanent address"></textarea>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required placeholder="Your current address"></textarea>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+                
+                <label for="nationality">Nationality:</label>
+                <select id="nationality" name="nationality" required>
+                   <option value="">Select Nationality</option>
+                   <option value="Indian">Indian</option>
+                   <option value="Other">Other</option>
+                </select>
+                <label for="other_nationality" id="other_nationality_label" style="display: none;">Please specify Nationality:</label>
+                <input type="text" id="other_nationality" name="other_nationality" placeholder="Enter your nationality" style="display: none;">
+
+               <label for="reservation_category">Reservation Category:</label>
+               <select id="reservation_category" name="reservation_category" required>
+                   <option value="">Select Reservation Category</option>
+                   <option value="SC">SC</option>
+                   <option value="ST">ST</option>
+                   <option value="BCA">BCA</option>
+                   <option value="BCB">BCB</option>
+                   <option value="BCD">BCD</option>
+                   <option value="Other">Other</option>
+               </select>
+               <label for="other_reservation_category" id="other_reservation_label" style="display: none;">Please specify Category:</label>
+               <input type="text" id="other_reservation_category" name="other_reservation_category" placeholder="Enter your category" style="display: none;">
+               
+               <label for="photo">Upload Photo (10 KB to 80 KB):</label>
+               <input type="file" id="photo" name="photo" accept="image/*" required>
+               <label for="signature">Upload Signature (10 KB to 80 KB):</label>
+               <input type="file" id="signature" name="signature" accept="image/*" required>
+            </div>
+            
+            <div class="form-section">
+                <h3>Educational Details</h3>
+                <label for="matric_board">Matriculation (10th Grade):</label>
+                <select id="matric_board" name="matric_board" required>
+                    <option value="">Select Board</option>
+                    <option value="SSC">SSC</option>
+                    <option value="ICSE">ICSE</option>
+                    <option value="CBSE">CBSE</option>
+                </select>
+                <label for="matric_marks">10th Grade Marks:</label>
+                <input type="text" id="matric_marks" name="matric_marks" required placeholder="e.g., 85%">
+                <label for="intermediate_college">Intermediate College Name:</label>
+                <input type="text" id="intermediate_college" name="intermediate_college" required placeholder="e.g., XYZ Junior College">
+                <label for="intermediate_group">Intermediate Group:</label>
+                <input type="text" id="intermediate_group" name="intermediate_group" required placeholder="e.g., MPC, BiPC">
+                <label for="intermediate_marks">Intermediate Marks:</label>
+                <input type="text" id="intermediate_marks" name="intermediate_marks" required placeholder="e.g., 90%">
+                <label for="degree">Degree/B.Tech:</label>
+                <select id="degree" name="degree" required>
+                    <option value="">Select University</option>
+                    <option value="GVPCoE">Gayatri Vidya Parishad College of Engineering</option>
+                    <option value="GVPCD">Gayatri Vidya Parishad College for Degree and PG Courses</option>
+                    <option value="GVPHC">Gayatri Vidya Parishad Institute of Health Care and Medical Technology</option>
+                </select>
+                
+                <label for="course">Course:</label>
+                <select id="course" name="course" required>
+                    <option value="">Select Course</option>
+                    <option value="BScCS">BSc Computer Science</option>
+                    <option value="BScElectronics">BSc Electronics</option>
+                    <option value="BScMBBTBC">BSc Microbiology/Biotechnology/Biochemistry</option>
+                    <option value="BScPhysics">BSc Physics</option>
+                    <option value="BScChemistry">BSc Chemistry</option>
+                    <option value="BScStatistics">BSc Statistics</option>
+                    <option value="BScDataScience">BSc Data Science</option>
+                    <option value="BScMathematics">BSc Mathematics</option>
+                    <option value="BCom">BCom</option>
+                    <option value="BBA">BBA</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BScEconomics">BSc Economics</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <h3>Additional Details</h3>
+                <label for="skills">Skills:</label>
+                <textarea id="skills" name="skills" placeholder="List your skills"></textarea>
+                <label for="hobbies">Hobbies:</label>
+                <textarea id="hobbies" name="hobbies" placeholder="Tell us about your hobbies"></textarea>
+                <label for="work_experience">Work Experience (if any):</label>
+                <textarea id="work_experience" name="work_experience" placeholder="Describe your work experience"></textarea>
+            </div>
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+    
+    <div class="container" id="data-view-container" style="display: none;">
+        </div>
+
+    <script>
+        const formContainer = document.getElementById('form-container');
+        const dataViewContainer = document.getElementById('data-view-container');
+        const viewDataBtn = document.getElementById('viewDataBtn');
+
+        document.getElementById('applicationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const photoFile = document.getElementById('photo').files[0];
+            const signatureFile = document.getElementById('signature').files[0];
+            const minSize = 10 * 1024; 
+            const maxSize = 80 * 1024; 
+
+            if (photoFile && (photoFile.size < minSize || photoFile.size > maxSize)) {
+                alert(`Photo size must be between 10 KB and 80 KB. Your file is ${(photoFile.size / 1024).toFixed(2)} KB.`);
+                return;
+            }
+
+            if (signatureFile && (signatureFile.size < minSize || signatureFile.size > maxSize)) {
+                alert(`Signature size must be between 10 KB and 80 KB. Your file is ${(signatureFile.size / 1024).toFixed(2)} KB.`);
+                return;
+            }
+
+            let formData = new FormData(this);
+            fetch('http://localhost:3000/api/submit', { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                alert('Form submitted successfully!');
+                this.reset();
+                // Manually trigger change event to hide 'Other' fields after reset
+                document.getElementById('nationality').dispatchEvent(new Event('change'));
+                document.getElementById('reservation_category').dispatchEvent(new Event('change'));
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                alert('Submission failed: ' + error.message);
+            });
+        });
+
+        viewDataBtn.addEventListener('click', () => {
+            const username = prompt("Please enter username:");
+            if (username === null) return; 
+
+            const password = prompt("Please enter password:");
+            if (password === null) return;
+
+            if (username === 'gvp' && password === 'gvp') {
+                fetch('http://localhost:3000/api/students')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) { throw new Error(data.error); }
+                        displayDataAsTable(data);
+                        formContainer.style.display = 'none';
+                        dataViewContainer.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        alert('Could not fetch data: ' + error.message);
+                    });
+            } else {
+                alert("Invalid username or password.");
+            }
+        });
+
+        function displayDataAsTable(data) {
+            if (data.length === 0) {
+                dataViewContainer.innerHTML = '<h2>No Data Submitted Yet</h2><button id="backToFormBtn" class="header-button">Back to Form</button>';
+                addBackToFormListener();
+                return;
+            }
+
+            const desiredOrder = ['full_name', 'father_name', 'mother_name', 'phone_number'];
+            const allHeaders = Object.keys(data[0]);
+            const remainingHeaders = allHeaders.filter(h => !desiredOrder.includes(h));
+            const headers = [...desiredOrder, ...remainingHeaders];
+
+            let tableHTML = `
+                <button id="backToFormBtn" class="header-button">Back to Form</button>
+                <h2>Submitted Student Data</h2>
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            ${headers.map(header => `<th>${header.replace(/_/g, ' ').toUpperCase()}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(row => `
+                            <tr>
+                                ${headers.map(header => `<td>${row[header] || ''}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>`;
+            
+            dataViewContainer.innerHTML = tableHTML;
+            addBackToFormListener();
+        }
+        
+        function addBackToFormListener() {
+            document.getElementById('backToFormBtn').addEventListener('click', () => {
+                dataViewContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+            });
+        }
+
+        // --- NEW SCRIPT TO HANDLE 'OTHER' FIELDS ---
+
+        // Reusable function to show/hide the 'Other' input field
+        function handleOtherOption(selectElement, otherLabel, otherInput) {
+            if (selectElement.value === 'Other') {
+                otherLabel.style.display = 'block';
+                otherInput.style.display = 'block';
+                otherInput.setAttribute('required', 'required');
+            } else {
+                otherLabel.style.display = 'none';
+                otherInput.style.display = 'none';
+                otherInput.removeAttribute('required');
+                otherInput.value = ''; // Clear the input when it's hidden
+            }
+        }
+
+        // Get elements for Nationality
+        const nationalitySelect = document.getElementById('nationality');
+        const otherNationalityLabel = document.getElementById('other_nationality_label');
+        const otherNationalityInput = document.getElementById('other_nationality');
+
+        // Get elements for Reservation Category
+        const reservationSelect = document.getElementById('reservation_category');
+        const otherReservationLabel = document.getElementById('other_reservation_label');
+        const otherReservationInput = document.getElementById('other_reservation_category');
+        
+        // Add event listeners
+        nationalitySelect.addEventListener('change', () => {
+            handleOtherOption(nationalitySelect, otherNationalityLabel, otherNationalityInput);
+        });
+
+        reservationSelect.addEventListener('change', () => {
+            handleOtherOption(reservationSelect, otherReservationLabel, otherReservationInput);
+        });
+    </script>
+</body>
+</html>
