@@ -24,20 +24,21 @@ def allowed_file(filename):
 @app.route('/api/submit', methods=['POST'])
 def submit_form():
     try:
-        # Get form data (this function remains the same)
+        # Get form data
         form_data = {
             'full_name': request.form.get('full_name'),
             'father_name': request.form.get('father_name'),
             'mother_name': request.form.get('mother_name'),
             'gender': request.form.get('gender'),
-            'phone_number': request.form.get('phone_number'),
-            'father_phone_number': request.form.get('father_phone_number'),
-            'mother_phone_number': request.form.get('mother_phone_number'),
+            'phone_number': request.form.get('phone_country_code', '') + request.form.get('phone_number', ''),
+            'father_phone_number': request.form.get('father_phone_country_code', '') + request.form.get('father_phone_number', ''),
+            'mother_phone_number': request.form.get('mother_phone_country_code', '') + request.form.get('mother_phone_number', ''),
             'email': request.form.get('email'),
             'permanent_address': request.form.get('permanent_address'),
             'address': request.form.get('address'),
             'dob': request.form.get('dob'),
             'nationality': request.form.get('nationality'),
+            'other_nationality': request.form.get('other_nationality'),
             'reservation_category': request.form.get('reservation_category'),
             'other_reservation_category': request.form.get('other_reservation_category'),
             'matric_board': request.form.get('matric_board'),
@@ -53,22 +54,17 @@ def submit_form():
             'submission_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
 
-        # Handle file uploads (this part remains the same)
+        # Handle file uploads
         for file_key in ['photo', 'signature']:
-            if file_key not in request.files:
-                return jsonify({'error': f'{file_key} is required'}), 400
-            file = request.files[file_key]
-            if file.filename == '':
-                return jsonify({'error': f'No {file_key} selected'}), 400
-            if file and allowed_file(file.filename):
-                filename = secure_filename(f"{file_key}_{int(datetime.now().timestamp())}{os.path.splitext(file.filename)[1]}")
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_path)
-                form_data[file_key] = file_path
-            else:
-                return jsonify({'error': f'Invalid {file_key} file type or no file selected'}), 400
+            if file_key in request.files:
+                file = request.files[file_key]
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(f"{file_key}_{int(datetime.now().timestamp())}{os.path.splitext(file.filename)[1]}")
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    file.save(file_path)
+                    form_data[file_key] = file_path
 
-        # Save to Excel using Pandas (this part remains the same)
+        # Save to Excel
         new_df = pd.DataFrame([form_data])
         try:
             with pd.ExcelWriter(EXCEL_FILE, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
@@ -83,24 +79,18 @@ def submit_form():
         print(f"Error saving data: {e}")
         return jsonify({'error': f'Submission failed: {str(e)}'}), 500
 
-# --- NEW ENDPOINT TO VIEW DATA ---
 @app.route('/api/students', methods=['GET'])
 def get_students():
     try:
-        # Read the excel file
         df = pd.read_excel(EXCEL_FILE)
-        # Replace NaN with empty strings for better JSON compatibility
         df = df.fillna('')
-        # Convert dataframe to a list of dictionaries
         records = df.to_dict(orient='records')
         return jsonify(records)
     except FileNotFoundError:
-        # If the file doesn't exist, return an empty list
         return jsonify([])
     except Exception as e:
         print(f"Error retrieving data: {e}")
         return jsonify({'error': f'Retrieval failed: {str(e)}'}), 500
-
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
