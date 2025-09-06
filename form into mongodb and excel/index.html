@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAYATRI VIDYA PARISHAD COLLEGE FOR DEGREE AND PG COURSES (AUTONOMOUS)</title>
+    <style>
+        :root {
+            --primary-color: #2193b0;
+            --secondary-color: #6dd5ed;
+            --background-start: #a1c4fd;
+            --background-end: #c2e9fb;
+            --text-dark: #333;
+            --text-light: #555;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --card-border: rgba(255, 255, 255, 0.2);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 1.5rem;
+            background: var(--card-bg);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+        }
+
+        .logo {
+            max-width: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .college-details {
+            width: 100%;
+        }
+
+        .college-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .college-info {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            margin: 0.25rem 0;
+        }
+
+        .codes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .codes div {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .header-button-container {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .header-button {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .header-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            background: var(--card-bg);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+        }
+        
+        #data-view-container {
+            max-width: 1200px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #data-table, .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        #data-table th, #data-table td, .review-table th, .review-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            white-space: nowrap;
+        }
+        #data-table th, .review-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        .review-table td:first-child {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        h2 { text-align: center; color: var(--text-dark); font-size: 1.75rem; margin-bottom: 2rem;}
+        h3 { color: var(--text-dark); border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; font-size: 1.25rem; margin-bottom: 1.5rem; }
+        label { display: block; margin: 1rem 0 0.5rem; font-weight: 600; color: var(--text-light); }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 0.8rem 1rem; 
+            border: 1px solid var(--card-border); 
+            border-radius: 0.75rem; 
+            box-sizing: border-box; 
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(33, 147, 176, 0.3);
+        }
+        
+        .phone-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .phone-input-group select {
+            flex: 0 0 120px;
+        }
+        .phone-input-group input {
+            flex: 1 1 auto;
+        }
+        
+        button[type="submit"] {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            display: block;
+            margin: 2.5rem auto 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            width: 100%;
+        }
+        
+        .review-buttons {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .review-image {
+            max-width: 150px;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            body {
+                padding: 2rem;
+            }
+            .header {
+                flex-direction: row;
+                text-align: left;
+            }
+            .logo {
+                max-width: 100px;
+                margin-bottom: 0;
+                margin-right: 1.5rem;
+            }
+            .college-details {
+                text-align: center;
+            }
+            .college-name {
+                font-size: 1.5rem;
+            }
+            .college-info {
+                font-size: 0.9rem;
+            }
+            .header-button-container {
+                width: auto;
+                margin-top: 0;
+                margin-left: 1.5rem;
+            }
+            .header-button {
+                width: auto;
+            }
+            .container {
+                padding: 3rem;
+            }
+            button[type="submit"] {
+                width: auto;
+                min-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.gvpcdpgc.edu.in/gvplogo.jpg" alt="College Logo" class="logo">
+        <div class="college-details">
+            <div class="college-name">GAYATRI VIDYA PARISHAD COLLEGE FOR DEGREE AND PG COURSES (AUTONOMOUS)</div>
+            <div class="college-info">(Affiliated to Andhra University Accredited by NAAC with 'A' Grade)</div>
+            <div class="college-info">(MBA and UG Engineering B.Tech (CE, CSE, ECE and ME) programs are Accredited by NBA)</div>
+            <div class="college-info">Visakhapatnam - 530045</div>
+            <div class="codes">
+                <div>ICET CODE: GVPP</div>
+                <div>EAPCET / ECET CODE: GVPT</div>
+                <div>PGECECET CODE: GVPT1</div>
+                <div>AUCET CODE: 112</div>
+                <div>OAMDC: 13818</div>
+            </div>
+        </div>
+        <div class="header-button-container">
+            <button id="viewDataBtn" class="header-button">View Data</button>
+        </div>
+    </div>
+
+    <div class="container" id="form-container">
+        <h2>Student Application Form</h2>
+        <form id="applicationForm" enctype="multipart/form-data">
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required placeholder="Enter your full name">
+                
+                <label for="father_name">Father's Name</label>
+                <input type="text" id="father_name" name="father_name" required placeholder="Enter father's name">
+                
+                <label for="mother_name">Mother's Name</label>
+                <input type="text" id="mother_name" name="mother_name" required placeholder="Enter mother's name">
+                
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="phone_number">Phone Number</label>
+                <div class="phone-input-group">
+                    <select name="phone_country_code">
+                        <option value="+91">+91 (India)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="phone_number" name="phone_number" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                </div>
+
+                <label for="father_phone_number">Father's Mobile Number</label>
+                <div class="phone-input-group">
+                    <select name="father_phone_country_code">
+                        <option value="+91">+91 (India)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="father_phone_number" name="father_phone_number" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                </div>
+
+                <label for="mother_phone_number">Mother's Mobile Number</label>
+                <div class="phone-input-group">
+                    <select name="mother_phone_country_code">
+                        <option value="+91">+91 (India)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="mother_phone_number" name="mother_phone_number" required placeholder="10-digit number" maxlength="10" pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                </div>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="e.g., example@domain.com">
+
+                <label for="permanent_address">Permanent Address</label>
+                <textarea id="permanent_address" name="permanent_address" required placeholder="Your permanent address" rows="3"></textarea>
+                <label for="address">Current Address</label>
+                <textarea id="address" name="address" required placeholder="Your current address" rows="3"></textarea>
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+                
+                <label for="nationality">Nationality</label>
+                <select id="nationality" name="nationality" required>
+                   <option value="">Select Nationality</option>
+                   <option value="Indian">Indian</option>
+                   <option value="Other">Other</option>
+                </select>
+                <div id="other_nationality_wrapper" style="display: none;">
+                    <label for="other_nationality">Please specify Nationality</label>
+                    <input type="text" id="other_nationality" name="other_nationality" placeholder="Enter your nationality">
+                </div>
+
+               <label for="reservation_category">Reservation Category</label>
+               <select id="reservation_category" name="reservation_category" required>
+                   <option value="">Select Reservation Category</option>
+                   <option value="SC">SC</option>
+                   <option value="ST">ST</option>
+                   <option value="BCA">BCA</option>
+                   <option value="BCB">BCB</option>
+                   <option value="BCD">BCD</option>
+                   <option value="Other">Other</option>
+               </select>
+               <div id="other_reservation_wrapper" style="display: none;">
+                   <label for="other_reservation_category">Please specify Category</label>
+                   <input type="text" id="other_reservation_category" name="other_reservation_category" placeholder="Enter your category">
+               </div>
+               
+               <label for="photo">Upload Photo (10 KB to 80 KB)</label>
+               <input type="file" id="photo" name="photo" accept="image/*" required>
+               <label for="signature">Upload Signature (10 KB to 80 KB)</label>
+               <input type="file" id="signature" name="signature" accept="image/*" required>
+            </div>
+            
+            <div class="form-section">
+                <h3>Educational Details</h3>
+                <label for="matric_board">Matriculation (10th Grade) Board</label>
+                <select id="matric_board" name="matric_board" required>
+                    <option value="">Select Board</option>
+                    <option value="SSC">SSC</option>
+                    <option value="ICSE">ICSE</option>
+                    <option value="CBSE">CBSE</option>
+                </select>
+                <label for="matric_marks">10th Grade Marks</label>
+                <input type="text" id="matric_marks" name="matric_marks" required placeholder="e.g., 85% or 9.5 CGPA">
+                <label for="intermediate_college">Intermediate College Name</label>
+                <input type="text" id="intermediate_college" name="intermediate_college" required placeholder="e.g., XYZ Junior College">
+                <label for="intermediate_group">Intermediate Group</label>
+                <input type="text" id="intermediate_group" name="intermediate_group" required placeholder="e.g., MPC, BiPC">
+                <label for="intermediate_marks">Intermediate Marks</label>
+                <input type="text" id="intermediate_marks" name="intermediate_marks" required placeholder="e.g., 90% or 950">
+                <label for="degree">Degree/B.Tech College</label>
+                <select id="degree" name="degree" required>
+                    <option value="">Select College</option>
+                    <option value="GVPCoE">Gayatri Vidya Parishad College of Engineering</option>
+                    <option value="GVPCD">Gayatri Vidya Parishad College for Degree and PG Courses</option>
+                    <option value="GVPHC">Gayatri Vidya Parishad Institute of Health Care and Medical Technology</option>
+                </select>
+                
+                <label for="course">Course</label>
+                <select id="course" name="course" required>
+                    <option value="">Select a College First</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <h3>Additional Details</h3>
+                <label for="skills">Skills</label>
+                <textarea id="skills" name="skills" placeholder="List your skills (e.g., Python, JavaScript, Public Speaking)" rows="3"></textarea>
+                <label for="hobbies">Hobbies</label>
+                <textarea id="hobbies" name="hobbies" placeholder="Tell us about your hobbies (e.g., Reading, Hiking, Coding)" rows="3"></textarea>
+                <label for="work_experience">Work Experience (if any)</label>
+                <textarea id="work_experience" name="work_experience" placeholder="Describe your work experience" rows="3"></textarea>
+            </div>
+            <button type="submit">Review Application</button>
+        </form>
+    </div>
+    
+    <div class="container" id="data-view-container" style="display: none;">
+        </div>
+
+    <div class="container" id="review-container" style="display: none;">
+        </div>
+
+
+    <script>
+        // Store form data temporarily when user clicks review
+        let tempFormData = null;
+        // Store all student data for searching
+        let allStudentData = [];
+
+        const formContainer = document.getElementById('form-container');
+        const dataViewContainer = document.getElementById('data-view-container');
+        const reviewContainer = document.getElementById('review-container');
+        const viewDataBtn = document.getElementById('viewDataBtn');
+        const applicationForm = document.getElementById('applicationForm');
+
+        // --- 1. Handle initial form submission for REVIEW ---
+        applicationForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const photoFile = document.getElementById('photo').files[0];
+            const signatureFile = document.getElementById('signature').files[0];
+            const minSize = 10 * 1024; 
+            const maxSize = 80 * 1024; 
+
+            if (!photoFile) { alert('Please upload a photo.'); return; }
+            if (!signatureFile) { alert('Please upload a signature.'); return; }
+            if (photoFile.size < minSize || photoFile.size > maxSize) {
+                alert(`Photo size must be between 10 KB and 80 KB. Your file is ${(photoFile.size / 1024).toFixed(2)} KB.`);
+                return;
+            }
+            if (signatureFile.size < minSize || signatureFile.size > maxSize) {
+                alert(`Signature size must be between 10 KB and 80 KB. Your file is ${(signatureFile.size / 1024).toFixed(2)} KB.`);
+                return;
+            }
+
+            // Store form data globally and show the review page
+            tempFormData = new FormData(this);
+            showReviewPage(tempFormData);
+        });
+
+        // --- 2. Function to build and display the REVIEW page ---
+        function showReviewPage(formData) {
+            let reviewHTML = '<h2>Review Your Application</h2><table class="review-table">';
+
+            // Create a readable table of form data
+            for (const [key, value] of formData.entries()) {
+                if ((typeof value === 'object' && value.name) || !value || key.endsWith('_country_code')) {
+                    continue; // Skip files, empty values, and country codes for now
+                }
+                
+                let label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                let displayValue = value;
+
+                // Combine phone numbers with their country codes for display
+                if (['phone_number', 'father_phone_number', 'mother_phone_number'].includes(key)) {
+                    const countryCode = formData.get(`${key.replace('_number', '')}_phone_country_code`);
+                    displayValue = `${countryCode} ${value}`;
+                }
+
+                // Get display text for college and course, not the value
+                if (key === 'degree' || key === 'course') {
+                    const selectElement = document.getElementById(key);
+                    const selectedOption = selectElement.options[selectElement.selectedIndex];
+                    displayValue = selectedOption ? selectedOption.text : value;
+                }
+
+                reviewHTML += `<tr><td>${label}</td><td>${displayValue}</td></tr>`;
+            }
+            reviewHTML += '</table>';
+
+            // Add image previews
+            const photoFile = document.getElementById('photo').files[0];
+            const signatureFile = document.getElementById('signature').files[0];
+
+            if (photoFile) {
+                reviewHTML += `<h3>Photo</h3><img src="${URL.createObjectURL(photoFile)}" alt="Photo Preview" class="review-image">`;
+            }
+            if (signatureFile) {
+                reviewHTML += `<h3>Signature</h3><img src="${URL.createObjectURL(signatureFile)}" alt="Signature Preview" class="review-image">`;
+            }
+            
+            // Add Edit and Confirm buttons
+            reviewHTML += `
+                <div class="review-buttons">
+                    <button id="editBtn" class="header-button">Edit Details</button>
+                    <button id="confirmSubmitBtn" class="header-button">Confirm & Submit</button>
+                </div>`;
+            
+            reviewContainer.innerHTML = reviewHTML;
+
+            // Show review page and hide form
+            formContainer.style.display = 'none';
+            reviewContainer.style.display = 'block';
+
+            // Add event listeners for the new buttons
+            document.getElementById('editBtn').addEventListener('click', () => {
+                reviewContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+            });
+
+            document.getElementById('confirmSubmitBtn').addEventListener('click', submitFinalData);
+        }
+
+        // --- 3. Function to handle the FINAL submission to the server ---
+        function submitFinalData() {
+            if (!tempFormData) {
+                alert('No form data to submit.');
+                return;
+            }
+
+            const submitButton = document.getElementById('confirmSubmitBtn');
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+
+            fetch('http://localhost:3000/api/submit', { method: 'POST', body: tempFormData })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                alert('Form submitted successfully!');
+                applicationForm.reset();
+                // Manually trigger change events to reset dependent fields
+                document.getElementById('nationality').dispatchEvent(new Event('change'));
+                document.getElementById('reservation_category').dispatchEvent(new Event('change'));
+                document.getElementById('degree').dispatchEvent(new Event('change'));
+                reviewContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                alert('Submission failed: ' + error.message);
+            })
+            .finally(() => {
+                // In case of error, re-enable the button
+                if(submitButton) {
+                    submitButton.textContent = 'Confirm & Submit';
+                    submitButton.disabled = false;
+                }
+                tempFormData = null; // Clear the temporary data
+            });
+        }
+
+        // --- 4. ADMIN 'View Data' functionality ---
+        viewDataBtn.addEventListener('click', () => {
+            const username = prompt("Admin Login\nPlease enter username:");
+            if (username === null) return; 
+
+            const password = prompt("Please enter password:");
+            if (password === null) return;
+
+            if (username === 'gvp' && password === 'gvp') {
+                fetch('http://localhost:3000/api/students')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) { throw new Error(data.error); }
+                        allStudentData = data; // Store the fetched data globally
+                        displayDataView();    // Display the initial view with the data
+                        formContainer.style.display = 'none';
+                        reviewContainer.style.display = 'none';
+                        dataViewContainer.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        alert('Could not fetch data: ' + error.message);
+                    });
+            } else {
+                alert("Invalid username or password.");
+            }
+        });
+
+        // --- 5. Function to display the data view with search ---
+        function displayDataView() {
+            if (allStudentData.length === 0) {
+                dataViewContainer.innerHTML = '<h2>No Data Submitted Yet</h2><button id="backToFormBtn" class="header-button">Back to Form</button>';
+                addBackToFormListener();
+                return;
+            }
+
+            const desiredOrder = ['full_name', 'father_name', 'mother_name', 'phone_number', 'email', 'course', 'matric_marks', 'intermediate_marks'];
+            const allHeaders = Object.keys(allStudentData[0]);
+            const remainingHeaders = allHeaders.filter(h => !desiredOrder.includes(h));
+            const headers = [...desiredOrder, ...remainingHeaders];
+
+            // Build the initial HTML including the search input
+            let viewHTML = `
+                <button id="backToFormBtn" class="header-button">Back to Form</button>
+                <h2>Submitted Student Data</h2>
+                <div style="margin: 1.5rem 0;">
+                    <input type="text" id="searchInput" placeholder="Search by name or marks..." style="width: 100%;">
+                </div>
+                <div class="table-wrapper">
+                    <table id="data-table">
+                        <thead>
+                            <tr>${headers.map(header => `<th>${header.replace(/_/g, ' ')}</th>`).join('')}</tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>`;
+            
+            dataViewContainer.innerHTML = viewHTML;
+            renderTableRows(allStudentData, headers); // Render initial rows
+            addBackToFormListener();
+
+            // Add event listener for the search input
+            document.getElementById('searchInput').addEventListener('keyup', () => {
+                const query = document.getElementById('searchInput').value.toLowerCase().trim();
+                
+                const filteredData = allStudentData.filter(student =>
+                    student.full_name.toLowerCase().includes(query) ||
+                    student.father_name.toLowerCase().includes(query) ||
+                    student.mother_name.toLowerCase().includes(query) ||
+                    String(student.matric_marks).toLowerCase().includes(query) ||
+                    String(student.intermediate_marks).toLowerCase().includes(query)
+                );
+                
+                renderTableRows(filteredData, headers);
+            });
+        }
+
+        // --- 6. Helper function to render ONLY the table rows ---
+        function renderTableRows(data, headers) {
+            const tableBody = document.querySelector("#data-table tbody");
+            if (!tableBody) return;
+
+            if (data.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="${headers.length}" style="text-align: center; padding: 2rem;">No matching records found.</td></tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = data.map(row => `
+                <tr>
+                    ${headers.map(header => `<td>${row[header] || ''}</td>`).join('')}
+                </tr>
+            `).join('');
+        }
+        
+        function addBackToFormListener() {
+            document.getElementById('backToFormBtn').addEventListener('click', () => {
+                dataViewContainer.style.display = 'none';
+                reviewContainer.style.display = 'none';
+                formContainer.style.display = 'block';
+            });
+        }
+        
+        // --- 7. Conditional field logic ---
+
+        // 'Other' option for Nationality and Reservation
+        function handleOtherOption(selectElement, otherWrapper) {
+            const otherInput = otherWrapper.querySelector('input');
+            if (selectElement.value === 'Other') {
+                otherWrapper.style.display = 'block';
+                otherInput.setAttribute('required', 'required');
+            } else {
+                otherWrapper.style.display = 'none';
+                otherInput.removeAttribute('required');
+                otherInput.value = '';
+            }
+        }
+
+        const nationalitySelect = document.getElementById('nationality');
+        const otherNationalityWrapper = document.getElementById('other_nationality_wrapper');
+
+        const reservationSelect = document.getElementById('reservation_category');
+        const otherReservationWrapper = document.getElementById('other_reservation_wrapper');
+        
+        nationalitySelect.addEventListener('change', () => handleOtherOption(nationalitySelect, otherNationalityWrapper));
+        reservationSelect.addEventListener('change', () => handleOtherOption(reservationSelect, otherReservationWrapper));
+
+        // --- 8. NEW: Dynamic Course Dropdown Logic ---
+        const coursesByCollege = {
+            'GVPCoE': [
+                'Architecture', 'Civil Engineering', 'Computer Science & Systems Engineering', 'Chemical Engineering',
+                'Electrical Engineering', 'Electronics & Communication Engineering', 'Geo-Engineering', 
+                'Information Technology & Computer Applications', 'Instrument Technology', 'Marine Engineering',
+                'Mechanical Engineering', 'Metallurgical Engineering', 'Engineering Chemistry', 'Humanities & Basic Sciences'
+            ],
+            'GVPCD': [
+                'BSc Physics', 'BSc Chemistry', 'BSc Biology', 'BSc Mathematics', 'BSc Information Technology (IT)',
+                'BSc Computer Science', 'BSc Microbiology', 'BSc Biotechnology', 'BSc Biochemistry', 'BSc Botany',
+                'BSc Zoology', 'BSc Geography', 'BSc Economics', 'BSc Data Science'
+            ],
+            'GVPHC': [
+                'B.Sc in Anatomy', 'B.Sc in Biochemistry', 'B.Sc in Community Medicine', 'B.Sc in Forensic Medicine',
+                'B.Sc in Microbiology', 'B.Sc in Nursing', 'B.Sc in Pathology', 'B.Sc in Pharmacology', 'B.Sc in Physiology'
+            ]
+        };
+
+        const degreeSelect = document.getElementById('degree');
+        const courseSelect = document.getElementById('course');
+
+        degreeSelect.addEventListener('change', () => {
+            const selectedCollege = degreeSelect.value;
+            const courses = coursesByCollege[selectedCollege] || [];
+
+            // Clear previous options
+            courseSelect.innerHTML = '';
+
+            if (courses.length === 0) {
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select a College First';
+                courseSelect.appendChild(defaultOption);
+            } else {
+                // Add a "Select Course" placeholder
+                const placeholderOption = document.createElement('option');
+                placeholderOption.value = '';
+                placeholderOption.textContent = 'Select Course';
+                courseSelect.appendChild(placeholderOption);
+
+                // Populate with new options
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    // Create a simple value from the course name
+                    option.value = course.replace(/[^a-zA-Z0-9]/g, ''); 
+                    option.textContent = course;
+                    courseSelect.appendChild(option);
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>
